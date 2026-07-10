@@ -39,9 +39,20 @@
   .nav a.on{background:var(--blue-soft);color:var(--blue-deep);font-weight:600}
   .nav .ic{width:18px;height:18px;flex:none;display:inline-flex;align-items:center;justify-content:center}
   .side .foot{margin-top:auto;display:flex;flex-direction:column;gap:2px}
-  .acct{display:flex;gap:10px;align-items:center;padding:10px;border-top:1px solid var(--line-soft);margin-top:8px}
-  .ava{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#4FB3A9);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+  .acct{display:flex;gap:10px;align-items:center;padding:10px;border-top:1px solid var(--line-soft);margin-top:8px;cursor:pointer;border-radius:10px;transition:background .15s}
+  .acct:hover{background:var(--line-soft)}
+  .ava{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#4FB3A9);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex:none}
   .acct small{display:block;color:var(--faint);font-size:11px}
+  .acct-wrap{position:relative}
+  .acct-menu{position:absolute;left:8px;right:8px;bottom:56px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh-lg);padding:6px;display:none;z-index:60}
+  .acct-menu.open{display:block;animation:menuIn .13s ease-out}
+  .acct-menu .amhdr{display:flex;gap:10px;align-items:center;padding:9px 10px 11px}
+  .acct-menu .amhdr small{display:block;color:var(--faint);font-size:11px}
+  .acct-menu .ami{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;transition:background .12s}
+  .acct-menu .ami:hover{background:var(--line-soft)}
+  .acct-menu .ami .ic{width:16px;color:var(--muted);font-size:14px;text-align:center}
+  .acct-menu .amsep{height:1px;background:var(--line-soft);margin:5px 4px}
+  .acct-menu .ami.mail{color:var(--muted);font-size:12px}
 
   /* shared */
   .main{position:relative;overflow:hidden}
@@ -297,6 +308,34 @@
   .theme-card .prev{height:66px;border-radius:8px;overflow:hidden;display:flex;gap:4px;padding:8px}
   .theme-card .prev .bar{border-radius:3px}
   .theme-card .lab{display:flex;align-items:center;gap:6px;justify-content:center;font-size:12.5px;font-weight:600;margin-top:9px}
+  /* team management */
+  .tm-stat{padding:14px 16px}
+  .tm-stat .k{font-size:12px;font-weight:600;color:var(--ink)}
+  .tm-stat .bar{height:6px;border-radius:var(--pill);background:var(--line-soft);margin:10px 0;overflow:hidden}
+  .tm-stat .bar i{display:block;height:100%;background:var(--blue);border-radius:var(--pill)}
+  .tm-stat .nums{display:flex;justify-content:space-between;gap:16px}
+  .tm-stat .nums span{color:var(--muted);font-size:11.5px}
+  .tm-stat .nums b{display:block;color:var(--ink);font-size:13px;margin-top:2px}
+  .tm-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px}
+  .tm-table th{text-align:left;color:var(--faint);font-size:11px;font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line-soft);white-space:nowrap}
+  .tm-table td{padding:12px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+  .tm-table tr:last-child td{border-bottom:none}
+  .tm-sel{border:1px solid var(--line);border-radius:8px;padding:4px 8px;font-size:12px;background:var(--card);cursor:pointer}
+  .usage-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:13px}
+  .usage-row:last-child{border-bottom:none}
+  .heat{display:grid;grid-template-columns:repeat(20,1fr);gap:3px;margin:6px 0 16px}
+  .heat i{aspect-ratio:1;border-radius:2px;background:var(--line-soft)}
+  .plan-card{border:1px solid var(--line);border-radius:14px;padding:22px}
+  .plan-card .feat{display:flex;align-items:center;gap:9px;padding:6px 0;font-size:13px}
+  .plan-card .feat .ck{width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;flex:none}
+  .bill-opt{border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;margin-top:10px;transition:border-color .15s}
+  .bill-opt.sel{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+  .bill-opt .radio{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);flex:none}
+  .bill-opt.sel .radio{border-color:var(--blue);background:radial-gradient(circle,var(--blue) 40%,transparent 45%)}
+  .step{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .step b{padding:8px 18px;font-family:var(--mono);font-size:14px}
+  .step span{padding:8px 13px;cursor:pointer;font-size:16px;color:var(--muted)}
+  .step span:hover{background:var(--line-soft)}
   .int-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
   .int{padding:14px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
   .int b{font-size:13px}
@@ -385,7 +424,20 @@
       </nav>
       <div class="foot">
         <nav class="nav"><a data-nav="settings"><span class="ic">⚙</span>Settings</a></nav>
-        <div class="acct"><div class="ava">SH</div><div><b style="font-size:12.5px">Scott Hayes</b><small>scott.hayes@jobfairx.com</small></div></div>
+        <div class="acct-wrap">
+          <div class="acct-menu" id="acctMenu">
+            <div class="amhdr"><div class="ava">SH</div><div><b style="font-size:12.5px">Scott Hayes</b><small>scott.hayes@jobfairx.com</small></div></div>
+            <div class="amsep"></div>
+            <div class="ami" data-acct="settings"><span class="ic">⚙</span>Settings</div>
+            <div class="ami" data-acct="team"><span class="ic">👥</span>Team management</div>
+            <div class="amsep"></div>
+            <div class="ami" data-acct="help"><span class="ic">◍</span>Help Center</div>
+            <div class="ami mail" data-acct="mail"><span class="ic">✉</span>support@jobagentx.com</div>
+            <div class="amsep"></div>
+            <div class="ami" data-acct="signout"><span class="ic">⤶</span>Sign out</div>
+          </div>
+          <div class="acct" id="acctBtn"><div class="ava">SH</div><div><b style="font-size:12.5px">Scott Hayes</b><small>scott.hayes@jobfairx.com</small></div><span style="margin-left:auto;color:var(--faint);font-size:12px">⌄</span></div>
+        </div>
       </div>
     </aside>
 
@@ -778,6 +830,67 @@
         </div>
       </section>
 
+      <!-- ============ TEAM MANAGEMENT ============ -->
+      <section class="screen" id="scr-team">
+        <div style="display:flex;gap:26px;align-items:flex-start">
+          <div style="flex:1;min-width:0">
+            <h2 style="margin:0 0 18px">👥 People</h2>
+            <div class="card" style="max-width:560px">
+              <div style="padding:16px 18px 6px"><b style="font-size:15px">AI Notes</b></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr">
+                <div class="tm-stat"><div class="k">Assigned Pro seats</div><div class="bar"><i style="width:0%"></i></div><div class="nums"><span>Assigned Pro Seats<b>0</b></span><span>Total Pro Seats<b>0</b></span></div></div>
+                <div class="tm-stat" style="border-left:1px solid var(--line-soft)"><div class="k">Free plan usage <span style="color:var(--faint)" title="Free plan gives your team up to 60 conversations a month">ⓘ</span></div><div class="bar"><i style="width:0%"></i></div><div class="nums"><span>Free conversations<b>0</b></span><span>Team max<b>60/mo</b></span></div></div>
+              </div>
+              <div style="border-top:1px solid var(--line-soft);padding:14px 18px;display:flex;align-items:center;gap:14px">
+                <p style="margin:0;color:var(--muted);font-size:12px;flex:1">Pro seats capture unlimited conversations. Invite free members to increase your free monthly conversations.</p>
+                <button class="btn sm" id="tmInvite">+ Invite team</button>
+                <button class="btn dark sm" id="tmBuy">+ Buy Pro seats</button>
+              </div>
+            </div>
+
+            <div class="seg" id="tmSeg" style="margin:22px 0 0"><span class="on" data-tmtab="active">Active&nbsp;&nbsp;2</span><span data-tmtab="archived">Archived&nbsp;&nbsp;0</span></div>
+            <div class="card" style="margin-top:12px;overflow-x:auto">
+              <table class="tm-table">
+                <thead><tr><th>Person</th><th>Role</th><th>Notes Seat</th><th>Notes Usage</th><th>Capturing Calls</th><th>Last conversation</th><th></th></tr></thead>
+                <tbody id="tmRows">
+                  <tr>
+                    <td><b>Brandon Lobe</b><div style="color:var(--faint);font-size:11.5px">brandon@jobfairx.com</div></td>
+                    <td><select class="tm-sel"><option>Member</option><option>Admin</option></select></td>
+                    <td><select class="tm-sel"><option>Free</option><option>Pro</option></select></td>
+                    <td style="color:var(--muted)">0/25</td>
+                    <td><span class="tgl" data-tglgrp style="font-size:10px"><span>Off</span><span class="sel">On</span></span></td>
+                    <td style="color:var(--faint)">—</td>
+                    <td><span data-toast="Member actions (prototype)" style="cursor:pointer;color:var(--faint)">⋯</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>Scott Hayes</b><div style="color:var(--faint);font-size:11.5px">scott.hayes@jobfairx.com</div></td>
+                    <td><select class="tm-sel"><option>Admin</option><option>Member</option></select></td>
+                    <td><select class="tm-sel"><option>Free</option><option>Pro</option></select></td>
+                    <td style="color:var(--muted)">0/25</td>
+                    <td><span class="tgl" data-tglgrp style="font-size:10px"><span class="sel">Off</span><span>On</span></span></td>
+                    <td style="color:var(--faint)">—</td>
+                    <td><span data-toast="Member actions (prototype)" style="cursor:pointer;color:var(--faint)">⋯</span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div id="tmArchivedEmpty" style="display:none;padding:40px;text-align:center;color:var(--muted);font-size:13px">No archived members.</div>
+            </div>
+          </div>
+
+          <aside style="width:320px;flex:none">
+            <div class="lbl">Notes usage</div>
+            <div class="card" style="padding:16px;margin-top:8px">
+              <div style="font-size:11px;font-weight:600;color:var(--faint);letter-spacing:.04em">CONVERSATIONS IN JOBAGENTX</div>
+              <div class="heat" id="tmHeat"></div>
+              <div class="usage-row"><span>Past month</span><b>0</b></div>
+              <div class="usage-row"><span>Past week</span><b>0</b></div>
+              <div class="usage-row"><span>Yesterday</span><b>0</b></div>
+              <div class="usage-row"><span>Today</span><b>0</b></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
       <!-- ============ TRANSCRIPT DRAWER ============ -->
       <aside class="drawer" id="drawer">
         <div class="player">
@@ -913,6 +1026,48 @@
         </div>
       </div>
 
+      <!-- ============ BUY PRO SEATS MODAL ============ -->
+      <div class="ovl" id="buyOvl">
+        <div class="modal" style="width:min(860px,94%);display:block;padding:26px 28px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><b style="font-size:17px">Buy Pro seats</b><div style="color:var(--muted);font-size:13px;margin-top:2px">Give more to your team members, and add the seats you need.</div></div><span style="color:var(--faint);cursor:pointer" data-close-buy>✕</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:20px">
+            <div class="plan-card">
+              <b style="font-size:15px">Pro</b><div style="color:var(--muted);font-size:12.5px;margin-top:2px">For active hiring and recruiting teams</div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line-soft);margin-bottom:8px"><span style="color:var(--muted);font-size:13px">JobAgentX Pro</span><span><b style="font-size:20px" id="planPrice">$50</b><span style="color:var(--muted);font-size:12px"> / seat / month</span></span></div>
+              <div class="feat"><span class="ck">✓</span><b>Unlimited conversations per month</b></div>
+              <div class="feat"><span class="ck">✓</span>Unlimited conversations history</div>
+              <div class="feat"><span class="ck">✓</span>Unlimited members</div>
+              <div class="feat"><span class="ck">✓</span>Advanced search and filtering</div>
+              <div class="feat"><span class="ck">✓</span>Centralized billing</div>
+            </div>
+            <div>
+              <div class="lbl">Total Pro seats</div>
+              <div class="step" style="margin-top:8px"><span id="seatMinus">−</span><b id="seatCount">1</b><span id="seatPlus">+</span></div>
+              <div class="lbl" style="margin-top:18px">Billing option</div>
+              <div class="bill-opt" data-bill="monthly"><span class="radio"></span><div><b style="font-size:13px">Monthly</b><div style="color:var(--muted);font-size:12px">$60 / seat / month</div></div></div>
+              <div class="bill-opt sel" data-bill="annually"><span class="radio"></span><div style="flex:1"><b style="font-size:13px">Annually</b><div style="color:var(--muted);font-size:12px">$50 / seat / month</div></div><span class="enabled" style="margin-left:auto">Save 20%</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line-soft)"><span style="color:var(--muted);font-size:13px" id="chargeLbl">Charged annually</span><b style="font-size:19px" id="chargeTotal">$600</b></div>
+              <button class="btn dark" style="width:100%;justify-content:center;margin-top:12px" id="buyConfirm">Buy Pro seat</button>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)"><div><b style="font-size:13px">🏢 Learn more about JobAgentX for Enterprise</b><div style="color:var(--muted);font-size:12px">Built for organizations that require enhanced security at scale. Speak to our sales team today.</div></div><button class="btn sm" data-toast="Connecting you with the JobAgentX sales team…">Contact sales</button></div>
+        </div>
+      </div>
+
+      <!-- ============ INVITE TO TEAM MODAL ============ -->
+      <div class="ovl" id="inviteOvl">
+        <div class="modal" style="width:min(700px,94%);display:block;padding:26px 28px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><b style="font-size:17px">⊞ Invite to team</b><div style="color:var(--muted);font-size:13px;margin-top:2px">Invite people to your team on JobAgentX by entering their email address below.</div></div><span style="color:var(--faint);cursor:pointer" data-close-invite>✕</span></div>
+          <div style="display:grid;grid-template-columns:1fr 130px 130px;gap:10px;margin-top:20px;align-items:center">
+            <div style="font-size:11px;font-weight:600;color:var(--faint)">EMAIL</div><div style="font-size:11px;font-weight:600;color:var(--faint)">NOTES</div><div style="font-size:11px;font-weight:600;color:var(--faint)">ROLE</div>
+            <input class="tm-sel" style="padding:8px 12px" placeholder="alex@jobagentx.com"><select class="tm-sel" style="padding:8px"><option>Free</option><option>Pro</option></select><select class="tm-sel" style="padding:8px"><option>Member</option><option>Admin</option></select>
+            <input class="tm-sel" style="padding:8px 12px" placeholder="naomi@jobagentx.com"><select class="tm-sel" style="padding:8px"><option>Free</option><option>Pro</option></select><select class="tm-sel" style="padding:8px"><option>Member</option><option>Admin</option></select>
+            <input class="tm-sel" style="padding:8px 12px" placeholder="fatima@jobagentx.com"><select class="tm-sel" style="padding:8px"><option>Free</option><option>Pro</option></select><select class="tm-sel" style="padding:8px"><option>Member</option><option>Admin</option></select>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px"><span style="display:flex;align-items:center;gap:9px"><span class="tgl" data-tglgrp style="font-size:10px"><span>Off</span><span class="sel">On</span></span><span style="font-size:12.5px;color:var(--muted)">Send them an email to get them set up</span></span><button class="btn dark sm" id="inviteConfirm">Invite</button></div>
+        </div>
+      </div>
+
       <div class="toast" id="toast"></div>
     </main>
   </div>
@@ -921,6 +1076,55 @@
 <script>
 (function(){
   const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+  /* ================= HELP CENTER (opens in a new window) ================= */
+  const HELP_HTML=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JobAgentX Help Center</title>
+  <style>
+    :root{--blue:#0F766E;--blue-deep:#0B5D57;--soft:#E3F1EE;--ghost:#F4FAF8;--ink:#191B1F;--muted:#5F6570;--faint:#9AA0A9;--line:#E8E8E4;--canvas:#FAFAF8}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--ink);background:var(--canvas);line-height:1.5}
+    .hd{background:linear-gradient(160deg,var(--blue-deep),var(--blue));color:#fff;padding:44px 24px 52px}
+    .hd .in{max-width:940px;margin:0 auto}
+    .wm{font-weight:800;font-size:19px;letter-spacing:-.01em}.wm span{color:#8FE3D8}
+    .hd h1{font-size:30px;margin:20px 0 8px;letter-spacing:-.02em}
+    .hd p{opacity:.9;font-size:15px}
+    .srch{margin-top:22px;background:#fff;border-radius:12px;padding:13px 16px;display:flex;gap:10px;align-items:center;max-width:520px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+    .srch input{border:none;outline:none;flex:1;font-size:14px;color:var(--ink)}
+    .wrap{max-width:940px;margin:-28px auto 60px;padding:0 24px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+    .cat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:0 1px 3px rgba(16,24,40,.05)}
+    .cat .ico{width:38px;height:38px;border-radius:10px;background:var(--soft);color:var(--blue-deep);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px}
+    .cat h3{font-size:15px;margin-bottom:4px}
+    .cat .sub{color:var(--faint);font-size:12.5px;margin-bottom:12px}
+    .cat a{display:block;color:var(--blue-deep);text-decoration:none;font-size:13px;padding:5px 0;border-top:1px solid #F1F1EE}
+    .cat a:hover{color:var(--blue);padding-left:4px;transition:.12s}
+    .cat a:before{content:'›';margin-right:7px;color:var(--faint)}
+    .foot{max-width:940px;margin:0 auto;padding:0 24px 50px;color:var(--muted);font-size:13px}
+    .foot .box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+    .btn{background:var(--ink);color:#fff;border:none;border-radius:10px;padding:11px 18px;font-weight:600;font-size:13px;cursor:pointer;text-decoration:none}
+    @media(prefers-color-scheme:dark){body{background:#111316;color:#ECECEA}.cat,.srch,.foot .box{background:#191B1F;border-color:#2A2D33}.cat a{border-color:#26292F}}
+  </style></head><body>
+  <div class="hd"><div class="in"><div class="wm">JobAgent<span>X</span> · Help Center</div><h1>How can we help?</h1><p>Guides and answers for the JobAgentX AI Notetaker.</p>
+    <div class="srch">🔍<input placeholder="Search for articles…" onkeydown="if(event.key==='Enter')alert('Search is a placeholder in this prototype.')"></div></div></div>
+  <div class="wrap"><div class="grid">
+    <div class="cat"><div class="ico">🚀</div><h3>Getting Started</h3><div class="sub">Set up JobAgentX and take your first notes.</div>
+      <a href="#">What is the JobAgentX Notetaker?</a><a href="#">Connect your calendar</a><a href="#">Your first AI notes in 5 minutes</a><a href="#">Inviting your team</a></div>
+    <div class="cat"><div class="ico">🎙️</div><h3>Capturing Conversations</h3><div class="sub">Every way to get an interview into JobAgentX.</div>
+      <a href="#">Auto-join calls from your calendar</a><a href="#">Invite the notetaker by email</a><a href="#">Paste a meeting link to join a live call</a><a href="#">Upload a recording</a><a href="#">Record with your microphone</a><a href="#">Capture phone screens &amp; callbacks</a></div>
+    <div class="cat"><div class="ico">📝</div><h3>AI Notes &amp; Summaries</h3><div class="sub">Summaries, TLDR, snippets, and citations.</div>
+      <a href="#">How AI summaries work</a><a href="#">Editing notes &amp; versions</a><a href="#">Change format, length &amp; language</a><a href="#">Creating snippets from the transcript</a><a href="#">Reading citations &amp; the transcript</a></div>
+    <div class="cat"><div class="ico">🧩</div><h3>Templates</h3><div class="sub">Shape notes to your interview process.</div>
+      <a href="#">Using a built-in template</a><a href="#">Building a custom template</a><a href="#">Repeating sections &amp; autofill</a><a href="#">Setting a default template</a></div>
+    <div class="cat"><div class="ico">📊</div><h3>Reports</h3><div class="sub">Trends, filters, and alerts across conversations.</div>
+      <a href="#">Creating a report</a><a href="#">Filters, grouping &amp; columns</a><a href="#">Charts &amp; the report assistant</a><a href="#">Subscribing to alerts</a></div>
+    <div class="cat"><div class="ico">👥</div><h3>Team &amp; Billing</h3><div class="sub">Seats, plans, and managing your team.</div>
+      <a href="#">Free plan &amp; monthly conversation limits</a><a href="#">Buying &amp; assigning Pro seats</a><a href="#">Inviting members &amp; roles</a><a href="#">Managing your subscription</a></div>
+    <div class="cat"><div class="ico">🔒</div><h3>Privacy &amp; Security</h3><div class="sub">Consent, data handling, and controls.</div>
+      <a href="#">Recording consent &amp; notifications</a><a href="#">Data retention &amp; deletion</a><a href="#">Who can see a conversation</a><a href="#">Candidate data requests</a></div>
+  </div></div>
+  <div class="foot"><div class="box"><div><b style="font-size:15px">Still need help?</b><div>Reach the JobAgentX team and we'll get back to you.</div></div><a class="btn" href="mailto:support@jobagentx.com">Contact support</a></div>
+    <p style="text-align:center;margin-top:22px;color:#9AA0A9">© JobAgentX · AI Notetaker · Help Center (prototype outline)</p></div>
+  </body></html>`;
 
   /* ================= DATA (verbatim from the Blueprint v2 teardown) ================= */
   const SUMMARY=[
@@ -1114,7 +1318,7 @@
   });
 
   /* ================= nav / screens ================= */
-  const screens={home:'scr-home',reports:'scr-reports',report:'scr-report',settings:'scr-settings',note:'scr-note'};
+  const screens={home:'scr-home',reports:'scr-reports',report:'scr-report',settings:'scr-settings',note:'scr-note',team:'scr-team'};
   function go(name){
     $$('.screen').forEach(e=>e.classList.remove('on'));
     $('#'+(screens[name]||'scr-home')).classList.add('on');
@@ -1128,6 +1332,60 @@
   $$('[data-nav]').forEach(a=>a.addEventListener('click',()=>{if(a.dataset.nav!=='x')go(a.dataset.nav)}));
   $$('[data-open-note]').forEach(e=>e.addEventListener('click',()=>go('note')));
   $('#fab').style.display='none';
+
+  /* ================= ACCOUNT MENU ================= */
+  $('#acctBtn').addEventListener('click',e=>{e.stopPropagation();$('#acctMenu').classList.toggle('open')});
+  document.addEventListener('click',e=>{if(!e.target.closest('#acctMenu')&&!e.target.closest('#acctBtn'))$('#acctMenu').classList.remove('open')});
+  $$('[data-acct]').forEach(m=>m.addEventListener('click',()=>{
+    $('#acctMenu').classList.remove('open');
+    const a=m.dataset.acct;
+    if(a==='settings')go('settings');
+    else if(a==='team')go('team');
+    else if(a==='help')openHelpCenter();
+    else if(a==='mail')toast('Opening your email to support@jobagentx.com…');
+    else if(a==='signout')toast('Signing out… (disabled in this prototype)');
+  }));
+
+  function openHelpCenter(){
+    const w=window.open('','_blank');
+    if(!w){toast('Allow pop-ups to open the Help Center');return}
+    w.document.write(HELP_HTML);
+    w.document.close();
+  }
+
+  /* ================= TEAM MANAGEMENT ================= */
+  // heatmap (deterministic pattern, no randomness)
+  (function(){const h=$('#tmHeat');if(h){let s='';for(let i=0;i<120;i++){const on=(i*7)%13===0;s+='<i'+(on?' style="background:var(--blue-soft)"':'')+'></i>'}h.innerHTML=s}})();
+  // active/archived tabs
+  $$('#tmSeg span').forEach(s=>s.addEventListener('click',()=>{
+    $$('#tmSeg span').forEach(x=>x.classList.remove('on'));s.classList.add('on');
+    const arch=s.dataset.tmtab==='archived';
+    $('#tmRows').style.display=arch?'none':'';
+    $('#tmArchivedEmpty').style.display=arch?'block':'none';
+  }));
+  // invite modal
+  $('#tmInvite').addEventListener('click',()=>$('#inviteOvl').classList.add('open'));
+  $$('[data-close-invite]').forEach(x=>x.addEventListener('click',()=>$('#inviteOvl').classList.remove('open')));
+  $('#inviteConfirm').addEventListener('click',()=>{$('#inviteOvl').classList.remove('open');toast('Invites sent — new members will appear once they accept')});
+  // buy pro seats modal
+  let seats=1, bill='annually';
+  function priceMath(){
+    const per=bill==='annually'?50:60;
+    const total=bill==='annually'?seats*50*12:seats*60;
+    $('#seatCount').textContent=seats;
+    $('#planPrice').textContent='$'+per;
+    $('#chargeLbl').textContent=bill==='annually'?'Charged annually':'Charged monthly';
+    $('#chargeTotal').textContent='$'+total.toLocaleString();
+    $('#buyConfirm').textContent='Buy '+seats+' Pro seat'+(seats>1?'s':'');
+  }
+  $('#tmBuy').addEventListener('click',()=>{$('#buyOvl').classList.add('open');priceMath()});
+  $$('[data-close-buy]').forEach(x=>x.addEventListener('click',()=>$('#buyOvl').classList.remove('open')));
+  $('#seatPlus').addEventListener('click',()=>{seats++;priceMath()});
+  $('#seatMinus').addEventListener('click',()=>{if(seats>1){seats--;priceMath()}});
+  $$('[data-bill]').forEach(o=>o.addEventListener('click',()=>{
+    $$('[data-bill]').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');bill=o.dataset.bill;priceMath();
+  }));
+  $('#buyConfirm').addEventListener('click',()=>{$('#buyOvl').classList.remove('open');toast(seats+' Pro seat'+(seats>1?'s':'')+' added — assign them to members in the table')});
 
   /* home: scope tabs, search, archive */
   let scopeIdx=0;
