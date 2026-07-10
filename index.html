@@ -7,6 +7,7 @@
 <body>
 <meta charset="utf-8">
 <title>JobAgentX Notetaker — Clickable Prototype</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230F766E%22/><text x=%2250%22 y=%2268%22 font-size=%2252%22 font-family=%22-apple-system,sans-serif%22 font-weight=%22800%22 fill=%22white%22 text-anchor=%22middle%22>JX</text></svg>">
 <style>
   :root{
     --blue:#0F766E; --blue-deep:#0B5D57; --blue-soft:#E3F1EE; --blue-ghost:#F4FAF8;
@@ -75,6 +76,12 @@
   .screen.on{display:block;animation:scrIn .22s ease-out}
   @keyframes scrIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+  input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--blue-soft);outline-offset:0;border-color:var(--blue)!important}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#D5D5D0;border-radius:var(--pill);border:2px solid var(--canvas)}
+  ::-webkit-scrollbar-thumb:hover{background:#BFBFB9}
   h1.pg{font-size:20px;font-weight:700;letter-spacing:-.01em;margin:0}
   .btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:7px 15px;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap;transition:border-color .15s,background .15s,box-shadow .15s,transform .08s}
   .btn:hover{border-color:#d6dbe4;box-shadow:0 1px 3px rgba(16,24,40,.06)}
@@ -341,6 +348,8 @@
   .tm-table th{text-align:left;color:var(--faint);font-size:11px;font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line-soft);white-space:nowrap}
   .tm-table td{padding:12px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
   .tm-table tr:last-child td{border-bottom:none}
+  .tm-table tbody tr{transition:background .12s}
+  .tm-table tbody tr:hover{background:var(--blue-ghost)}
   .tm-sel{border:1px solid var(--line);border-radius:8px;padding:4px 8px;font-size:12px;background:var(--card);cursor:pointer}
   .usage-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:13px}
   .usage-row:last-child{border-bottom:none}
@@ -1372,6 +1381,16 @@
   /* ================= SIDEBAR COLLAPSE ================= */
   $('#railBtn').addEventListener('click',()=>$('#app').classList.add('railmode'));
   $('#railMark').addEventListener('click',()=>$('#app').classList.remove('railmode'));
+
+  /* ================= ESC CLOSES EVERYTHING ================= */
+  document.addEventListener('keydown',e=>{
+    if(e.key!=='Escape')return;
+    $$('.ovl.open').forEach(o=>o.classList.remove('open'));
+    $$('.menu.open,.popmenu.open,.vpop.open').forEach(m=>m.classList.remove('open'));
+    $('#acctMenu').classList.remove('open');
+    $('#drawer').classList.remove('open');
+    $('#ai').classList.remove('open');
+  });
 
   /* ================= REPORTS SCOPE (Created by / Favorites) ================= */
   $('#repScope').addEventListener('click',ev=>{ev.stopPropagation();$('#repScopeMenu').classList.toggle('open')});
