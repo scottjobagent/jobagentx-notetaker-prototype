@@ -169,6 +169,12 @@
   .copy-split .b{border-radius:0 10px 10px 0;border-left:1px solid rgba(255,255,255,.25);padding:7px 11px}
   .cmenu{position:absolute;right:30px;top:0;width:210px}
   .cmenu .del{color:#B42318}
+  /* reusable row/card action menu */
+  .pm-wrap{position:relative;display:inline-block}
+  .pm-btn{cursor:pointer;color:var(--faint);padding:0 4px;border-radius:6px;font-size:16px;line-height:1}
+  .pm-btn:hover{background:var(--line-soft);color:var(--ink)}
+  .popmenu{right:0;top:calc(100% + 4px);min-width:158px;text-align:left}
+  .popmenu .del{color:#B42318}
 
   /* TLDR */
   .topics{padding:18px 20px}
@@ -363,9 +369,11 @@
   table.rt td:first-child{color:var(--ink);font-weight:600}
   table.rt tr[data-open-report]{cursor:pointer}
   table.rt tr[data-open-report]:hover td{background:var(--blue-ghost)}
-  .repc[data-open-report]{cursor:pointer;transition:box-shadow .15s}
-  .repc[data-open-report]{transition:box-shadow .15s,transform .15s}
+  .repc[data-open-report]{cursor:pointer;transition:box-shadow .15s,transform .15s}
   .repc[data-open-report]:hover{box-shadow:var(--sh-lg);transform:translateY(-2px)}
+  .repc-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .repc-by{color:var(--faint);font-size:11px;margin:3px 0 7px}
+  .repc-ft{display:flex;gap:6px;color:var(--faint);font-size:11.5px;margin-top:11px;padding-top:9px;border-top:1px solid var(--line-soft)}
 
   /* report detail */
   .rd-wrap{display:grid;grid-template-columns:1fr 340px;gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card);min-height:560px}
@@ -734,19 +742,19 @@
           <b>Created by JobAgentX ▾</b><button class="btn dark sm" data-open-report="new">+ New Report</button>
         </div>
         <div class="rep-grid">
-          <div class="card repc" data-open-report="Candidates"><b>Candidates</b><small>All conversations grouped by the candidate's email address.</small><div class="spark"><i style="height:30%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:62%"></i><i style="height:50%"></i><i class="hi" style="height:78%"></i></div></div>
-          <div class="card repc" data-open-report="Candidate Talk Time, by Interviewer"><b>Candidate Talk Time, by Interviewer</b><small>Average external talk time across interviewers.</small><div class="spark"><i style="height:55%"></i><i style="height:48%"></i><i style="height:60%"></i><i style="height:52%"></i><i style="height:66%"></i><i class="hi" style="height:58%"></i></div></div>
-          <div class="card repc" data-open-report="Interviewer Punctuality"><b>Interviewer Punctuality</b><small>Weekly average minutes late (internal participants).</small><div class="spark"><i style="height:40%"></i><i style="height:34%"></i><i style="height:28%"></i><i style="height:30%"></i><i style="height:22%"></i><i class="hi" style="height:18%"></i></div></div>
-          <div class="card repc" data-open-report="Interviewer Question Count"><b>Interviewer Question Count</b><small>Average questions asked by interviewers.</small><div class="spark"><i style="height:44%"></i><i style="height:52%"></i><i style="height:47%"></i><i style="height:58%"></i><i style="height:64%"></i><i class="hi" style="height:70%"></i></div></div>
+          <div class="card repc" data-open-report="Candidates"><div class="repc-hd"><b>Candidates</b><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Added to favorites">☆ Favorite</div><div class="mi" data-toast="Report duplicated">⧉ Duplicate</div><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span></div><div class="repc-by">Created by ◆ JobAgentX</div><small>All conversations grouped by the candidate's email address.</small><div class="spark"><i style="height:30%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:62%"></i><i style="height:50%"></i><i class="hi" style="height:78%"></i></div><div class="repc-ft">💬 0&nbsp;&nbsp;·&nbsp;&nbsp;📁 0</div></div>
+          <div class="card repc" data-open-report="Candidate Talk Time, by Interviewer"><div class="repc-hd"><b>Candidate Talk Time, by Interviewer</b><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Added to favorites">☆ Favorite</div><div class="mi" data-toast="Report duplicated">⧉ Duplicate</div><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span></div><div class="repc-by">Created by ◆ JobAgentX</div><small>Average external talk time across interviewers.</small><div class="spark"><i style="height:55%"></i><i style="height:48%"></i><i style="height:60%"></i><i style="height:52%"></i><i style="height:66%"></i><i class="hi" style="height:58%"></i></div><div class="repc-ft">💬 0&nbsp;&nbsp;·&nbsp;&nbsp;📁 0</div></div>
+          <div class="card repc" data-open-report="Interviewer Punctuality"><div class="repc-hd"><b>Interviewer Punctuality</b><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Added to favorites">☆ Favorite</div><div class="mi" data-toast="Report duplicated">⧉ Duplicate</div><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span></div><div class="repc-by">Created by ◆ JobAgentX</div><small>Weekly average minutes late (internal participants).</small><div class="spark"><i style="height:40%"></i><i style="height:34%"></i><i style="height:28%"></i><i style="height:30%"></i><i style="height:22%"></i><i class="hi" style="height:18%"></i></div><div class="repc-ft">💬 0&nbsp;&nbsp;·&nbsp;&nbsp;📁 0</div></div>
+          <div class="card repc" data-open-report="Interviewer Question Count"><div class="repc-hd"><b>Interviewer Question Count</b><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Added to favorites">☆ Favorite</div><div class="mi" data-toast="Report duplicated">⧉ Duplicate</div><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span></div><div class="repc-by">Created by ◆ JobAgentX</div><small>Average questions asked by interviewers.</small><div class="spark"><i style="height:44%"></i><i style="height:52%"></i><i style="height:47%"></i><i style="height:58%"></i><i style="height:64%"></i><i class="hi" style="height:70%"></i></div><div class="repc-ft">💬 0&nbsp;&nbsp;·&nbsp;&nbsp;📁 0</div></div>
         </div>
         <div class="lbl" style="margin-top:22px">All Reports</div>
         <div class="card" style="margin-top:8px;padding:6px 8px">
           <table class="rt">
-            <tr><th>Name</th><th>Conversations</th><th>Most recent</th><th>Created by</th><th>Trend</th></tr>
-            <tr data-open-report="Interviewer Punctuality"><td>Interviewer Punctuality</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
-            <tr data-open-report="Candidate Talk Time, by Interviewer"><td>Candidate Talk Time, by Interviewer</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
-            <tr data-open-report="Interviewer Question Count"><td>Interviewer Question Count</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
-            <tr data-open-report="Candidates"><td>Candidates</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
+            <tr><th>Name</th><th>Conversations</th><th>Most recent</th><th>Created by</th><th>Trend</th><th></th></tr>
+            <tr data-open-report="Interviewer Punctuality"><td>Interviewer Punctuality</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td><td><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Added to favorites">☆ Favorite</div><div class="mi" data-toast="Report duplicated">⧉ Duplicate</div><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span></td></tr>
+            <tr data-open-report="Candidate Talk Time, by Interviewer"><td>Candidate Talk Time, by Interviewer</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td><td><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Added to favorites">☆ Favorite</div><div class="mi" data-toast="Report duplicated">⧉ Duplicate</div><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span></td></tr>
+            <tr data-open-report="Interviewer Question Count"><td>Interviewer Question Count</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td><td><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Added to favorites">☆ Favorite</div><div class="mi" data-toast="Report duplicated">⧉ Duplicate</div><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span></td></tr>
+            <tr data-open-report="Candidates"><td>Candidates</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td><td><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Added to favorites">☆ Favorite</div><div class="mi" data-toast="Report duplicated">⧉ Duplicate</div><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span></td></tr>
           </table>
         </div>
       </section>
@@ -860,7 +868,7 @@
                     <td style="color:var(--muted)">0/25</td>
                     <td><span class="tgl" data-tglgrp style="font-size:10px"><span>Off</span><span class="sel">On</span></span></td>
                     <td style="color:var(--faint)">—</td>
-                    <td><span data-toast="Member actions (prototype)" style="cursor:pointer;color:var(--faint)">⋯</span></td>
+                    <td><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Rename user — enter a new name (prototype)">✎ Rename user</div><div class="mi" data-toast="Member archived — moved to the Archived tab">🗄 Archive user</div></div></span></td>
                   </tr>
                   <tr>
                     <td><b>Scott Hayes</b><div style="color:var(--faint);font-size:11.5px">scott.hayes@jobfairx.com</div></td>
@@ -869,7 +877,7 @@
                     <td style="color:var(--muted)">0/25</td>
                     <td><span class="tgl" data-tglgrp style="font-size:10px"><span class="sel">Off</span><span>On</span></span></td>
                     <td style="color:var(--faint)">—</td>
-                    <td><span data-toast="Member actions (prototype)" style="cursor:pointer;color:var(--faint)">⋯</span></td>
+                    <td><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Rename user — enter a new name (prototype)">✎ Rename user</div><div class="mi" data-toast="Member archived — moved to the Archived tab">🗄 Archive user</div></div></span></td>
                   </tr>
                 </tbody>
               </table>
@@ -1353,6 +1361,16 @@
     w.document.close();
   }
 
+  /* reusable row/card action menus (capture phase so clicks don't reach clickable cards) */
+  document.addEventListener('click',e=>{
+    const w=e.target.closest('.pm-wrap');
+    if(!w){$$('.popmenu.open').forEach(x=>x.classList.remove('open'));return}
+    e.stopPropagation();
+    const btn=e.target.closest('.pm-btn'), item=e.target.closest('.mi');
+    if(btn){const m=w.querySelector('.popmenu');const open=m.classList.contains('open');$$('.popmenu').forEach(x=>x.classList.remove('open'));if(!open)m.classList.add('open')}
+    else if(item){const t=item.getAttribute('data-toast');if(t)toast(t);w.querySelector('.popmenu').classList.remove('open')}
+  },true);
+
   /* ================= TEAM MANAGEMENT ================= */
   // heatmap (deterministic pattern, no randomness)
   (function(){const h=$('#tmHeat');if(h){let s='';for(let i=0;i<120;i++){const on=(i*7)%13===0;s+='<i'+(on?' style="background:var(--blue-soft)"':'')+'></i>'}h.innerHTML=s}})();
@@ -1477,7 +1495,7 @@
   function renderTplList(){$('#tplList').innerHTML=TEMPLATES.map((t,i)=>'<div class="tpl-item'+(i===curTpl?' on':'')+'" data-tpl="'+i+'">'+t.n+(t.inUse?' <span style="color:var(--blue)">●</span>':'')+'</div>').join('')}
   function renderTplDetail(){
     const t=TEMPLATES[curTpl];
-    $('#tplDetail').innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;position:sticky;top:-20px;background:var(--card);padding:8px 0;z-index:3;border-bottom:1px solid var(--line-soft)"><b style="font-size:16px">'+t.n+(t.inUse?' <span class="inuse">IN USE</span>':'')+'</b><span style="display:flex;gap:8px">'+(t.inUse?'':'<button class="btn dark sm" data-close-tpl data-toast="Template applied — regenerating summary">Use Template</button>')+'<button class="btn sm" id="tplCustomize">Customize</button><button class="btn sm">…</button><span style="color:var(--faint);cursor:pointer;margin-left:4px" data-close-tpl>✕</span></span></div>'
+    $('#tplDetail').innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;position:sticky;top:-20px;background:var(--card);padding:8px 0;z-index:3;border-bottom:1px solid var(--line-soft)"><b style="font-size:16px">'+t.n+(t.inUse?' <span class="inuse">IN USE</span>':'')+'</b><span style="display:flex;gap:8px">'+(t.inUse?'':'<button class="btn dark sm" data-close-tpl data-toast="Template applied — regenerating summary">Use Template</button>')+'<button class="btn sm" id="tplCustomize">Customize</button><span class="pm-wrap"><span class="pm-btn" style="border:1px solid var(--line);border-radius:8px;padding:5px 9px">…</span><div class="menu popmenu"><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span><span style="color:var(--faint);cursor:pointer;margin-left:4px" data-close-tpl>✕</span></span></div>'
       +'<div style="margin-top:6px;color:var(--muted);font-size:12px">◯ Default — auto-run this template on future calls</div>'
       +'<p style="color:var(--muted);font-size:13px;max-width:60ch">'+esc(t.d)+'</p>'
       +t.s.map(sec=>'<div class="tsec">'+(sec.each?'<span class="tag">FOR EACH</span><span class="th2">'+sec.each+'</span>':'<span class="th2">'+esc(sec.h)+'</span>')+'<div class="pr">“'+esc(sec.p)+'”</div></div>').join('');
