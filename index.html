@@ -92,6 +92,12 @@
   .convo .thumb{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#1B2437,#31415F);position:relative;flex:none}
   .convo .thumb:after{content:"▶";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px}
   .badge{font-size:10.5px;font-weight:700;border-radius:var(--pill);padding:2px 8px;background:var(--blue-soft);color:var(--blue-deep)}
+  .badge.proc{background:#FDF3E3;color:#9A6B15}
+  .thumb.proc{display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;background:linear-gradient(135deg,#8C6A2F,#B08A3E)!important}
+  .thumb.proc:after{content:""!important}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .thumb.proc{animation:none}
+  .badge.proc,.thumb.proc{position:relative}
   .quota{display:flex;align-items:center;gap:14px;padding:13px 16px;margin-top:18px;border-style:dashed}
   .quota .meter{flex:1;height:6px;border-radius:var(--pill);background:var(--line-soft);overflow:hidden}
   .quota .meter i{display:block;height:100%;width:17%;background:var(--blue);border-radius:var(--pill)}
@@ -338,7 +344,17 @@
             </div>
             <div id="convoList">
               <div class="lbl" style="margin-top:20px;display:block" id="convoLbl">Completed conversations</div>
-              <div class="card convo" data-open-note data-search="demo interview james samantha">
+              <div class="card convo" data-scope="mine" data-toast="Notes are still being generated — they'll be ready a few minutes after the interview ends" data-search="interview frontend engineer jordan lee processing">
+                <div class="thumb proc">⟳</div>
+                <div style="flex:1">
+                  <b style="font-size:13.5px">Interview — Frontend Engineer</b>
+                  <div style="color:var(--muted);font-size:12px;margin-top:1px">You with Jordan Lee</div>
+                  <div style="display:flex;gap:6px;margin-top:5px"><span class="badge proc">⟳ Processing — generating notes</span></div>
+                </div>
+                <div style="color:var(--muted);font-size:12px">Today, 10:00 am</div>
+                <div style="color:var(--faint)">›</div>
+              </div>
+              <div class="card convo" data-open-note data-scope="shared" data-search="demo interview james samantha external shared">
                 <div class="thumb"></div>
                 <div style="flex:1">
                   <b style="font-size:13.5px">Demo Interview</b>
@@ -348,7 +364,7 @@
                 <div style="color:var(--muted);font-size:12px">14 Apr 2023, 1:00 am</div>
                 <div style="color:var(--faint)">›</div>
               </div>
-              <div class="empty" id="noResults" style="display:none">No conversations match your search.</div>
+              <div class="empty" id="noResults" style="display:none">No conversations here yet.</div>
             </div>
             <div class="empty" id="archiveView" style="display:none">No archived conversations.</div>
             <div class="card quota">
@@ -935,15 +951,23 @@
   $('#fab').style.display='none';
 
   /* home: scope tabs, search, archive */
+  let scopeIdx=0;
+  function applyConvoFilter(){
+    const q=($('#convoSearch').value||'').toLowerCase();let any=false;
+    $$('#convoList .convo').forEach(c=>{
+      const okScope = scopeIdx===1 ? c.dataset.scope==='shared' : true;
+      const hit = okScope && c.dataset.search.includes(q);
+      c.style.display=hit?'flex':'none';if(hit)any=true;
+    });
+    $('#noResults').style.display=any?'none':'block';
+  }
   $$('#scopeSeg span').forEach((s,i)=>s.addEventListener('click',()=>{
     $$('#scopeSeg span').forEach(x=>x.classList.remove('on'));s.classList.add('on');
+    scopeIdx=i;
     $('#convoLbl').textContent=['Completed conversations','Shared with me','All conversations'][i];
+    applyConvoFilter();
   }));
-  $('#convoSearch').addEventListener('input',e=>{
-    const q=e.target.value.toLowerCase();let any=false;
-    $$('#convoList .convo').forEach(c=>{const hit=c.dataset.search.includes(q);c.style.display=hit?'flex':'none';if(hit)any=true});
-    $('#noResults').style.display=any?'none':'block';
-  });
+  $('#convoSearch').addEventListener('input',applyConvoFilter);
   let arch=false;
   $('#archBtn').addEventListener('click',()=>{arch=!arch;$('#archBtn').textContent=arch?'Hide archive':'Show archive';$('#archiveView').style.display=arch?'block':'none';$('#convoList').style.display=arch?'none':'block'});
 
