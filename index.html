@@ -46,10 +46,13 @@
   /* shared */
   .main{position:relative;overflow:hidden}
   .screen{display:none;padding:26px 30px 90px;height:100%;overflow-y:auto}
-  .screen.on{display:block}
+  .screen.on{display:block;animation:scrIn .22s ease-out}
+  @keyframes scrIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   h1.pg{font-size:20px;font-weight:700;letter-spacing:-.01em;margin:0}
-  .btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:7px 15px;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap}
-  .btn:hover{border-color:#d6dbe4}
+  .btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:7px 15px;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap;transition:border-color .15s,background .15s,box-shadow .15s,transform .08s}
+  .btn:hover{border-color:#d6dbe4;box-shadow:0 1px 3px rgba(16,24,40,.06)}
+  .btn:active{transform:translateY(1px)}
   .btn.blue{background:var(--blue);border-color:var(--blue);color:#fff}
   .btn.blue:hover{background:var(--blue-deep)}
   .btn.dark{background:var(--dark);border-color:var(--dark);color:#fff}
@@ -69,8 +72,9 @@
 
   /* dropdown menus */
   .menu{position:absolute;z-index:45;min-width:180px;padding:6px;display:none;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh-lg)}
-  .menu.open{display:block}
-  .menu .mi{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9px;cursor:pointer;font-size:13px}
+  .menu.open{display:block;animation:menuIn .13s ease-out}
+  @keyframes menuIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+  .menu .mi{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9px;cursor:pointer;font-size:13px;transition:background .12s}
   .menu .mi:hover{background:var(--line-soft)}
   .menu .mi .chk{width:14px;color:var(--blue-deep);font-weight:700}
   .menu .msearch{width:100%;border:1px solid var(--line);border-radius:9px;padding:7px 11px;font-size:12.5px;outline:none;margin-bottom:6px}
@@ -89,7 +93,8 @@
   .invite{padding:16px;margin-top:14px;background:var(--blue-ghost);border-color:#D8E9E5}
   .invite .mail{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12.5px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 13px;margin-top:9px}
   .convo{display:flex;align-items:center;gap:14px;padding:15px 16px;margin-top:12px;cursor:pointer;transition:box-shadow .15s}
-  .convo:hover{box-shadow:var(--sh-lg)}
+  .convo{transition:box-shadow .15s,transform .15s,border-color .15s}
+  .convo:hover{box-shadow:var(--sh-lg);transform:translateY(-1px)}
   .convo .thumb{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#1B2437,#31415F);position:relative;flex:none}
   .convo .thumb:after{content:"▶";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px}
   .badge{font-size:10.5px;font-weight:700;border-radius:var(--pill);padding:2px 8px;background:var(--blue-soft);color:var(--blue-deep)}
@@ -218,7 +223,10 @@
 
   /* modals */
   .ovl{position:absolute;inset:0;background:rgba(11,14,20,.45);display:none;align-items:center;justify-content:center;z-index:50}
-  .ovl.open{display:flex}
+  .ovl.open{display:flex;animation:ovlIn .16s ease-out}
+  @keyframes ovlIn{from{opacity:0}to{opacity:1}}
+  .ovl.open .modal{animation:modalIn .2s cubic-bezier(.2,.7,.3,1)}
+  @keyframes modalIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
   .modal{width:min(880px,92%);max-height:88%;background:var(--card);border-radius:20px;overflow:hidden;display:flex;box-shadow:var(--sh-lg)}
   .tpl-side{width:250px;flex:none;background:var(--canvas);border-right:1px solid var(--line);padding:16px;overflow-y:auto}
   .tpl-side h3{margin:0;font-size:14px;display:flex;justify-content:space-between;align-items:center}
@@ -282,6 +290,13 @@
   .set-row{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:14px 0;border-bottom:1px solid var(--line-soft)}
   .set-row b{font-size:13.5px}
   .set-row p{margin:3px 0 0;color:var(--muted);font-size:12.5px;max-width:52ch}
+  .theme-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+  .theme-card{border:1.5px solid var(--line);border-radius:12px;padding:10px;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s}
+  .theme-card:hover{border-color:var(--blue);transform:translateY(-1px)}
+  .theme-card.sel{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+  .theme-card .prev{height:66px;border-radius:8px;overflow:hidden;display:flex;gap:4px;padding:8px}
+  .theme-card .prev .bar{border-radius:3px}
+  .theme-card .lab{display:flex;align-items:center;gap:6px;justify-content:center;font-size:12.5px;font-weight:600;margin-top:9px}
   .int-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
   .int{padding:14px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
   .int b{font-size:13px}
@@ -310,7 +325,8 @@
   table.rt tr[data-open-report]{cursor:pointer}
   table.rt tr[data-open-report]:hover td{background:var(--blue-ghost)}
   .repc[data-open-report]{cursor:pointer;transition:box-shadow .15s}
-  .repc[data-open-report]:hover{box-shadow:var(--sh-lg)}
+  .repc[data-open-report]{transition:box-shadow .15s,transform .15s}
+  .repc[data-open-report]:hover{box-shadow:var(--sh-lg);transform:translateY(-2px)}
 
   /* report detail */
   .rd-wrap{display:grid;grid-template-columns:1fr 340px;gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card);min-height:560px}
@@ -573,6 +589,22 @@
                 <div class="set-row"><div><b>Receive summary notifications</b><p>Email when a call has been transcribed and the summary is ready.</p></div><span class="tgl" data-tglgrp><span>Disabled</span><span class="sel">Enabled</span></span></div>
                 <div class="set-row"><div><b>Record video</b><p>Record video in your personal calls, available for playback afterwards.</p></div><span class="tgl" data-tglgrp><span>Disabled</span><span class="sel">Enabled</span></span></div>
                 <div class="set-row" style="border-bottom:none"><div><b>Capture callbacks</b><p>We substitute a JobAgentX number when dialing so callbacks are captured too.</p></div><span class="tgl" data-tglgrp><span class="sel">Disabled</span><span>Enabled</span></span></div>
+              </div>
+              <div class="lbl" style="margin-top:18px">Color theme</div>
+              <div style="color:var(--muted);font-size:12.5px;margin-top:3px">Customize the visual appearance of JobAgentX.</div>
+              <div class="theme-row">
+                <div class="theme-card sel" data-theme-pick="light">
+                  <div class="prev" style="background:#FAFAF8;border:1px solid #E8E8E4"><div class="bar" style="width:24%;background:#EDEDE9"></div><div style="flex:1"><div class="bar" style="height:9px;width:60%;background:#0F766E"></div><div class="bar" style="height:7px;width:85%;background:#E1E1DC;margin-top:6px"></div><div class="bar" style="height:7px;width:70%;background:#E1E1DC;margin-top:5px"></div></div></div>
+                  <div class="lab">☀ Light</div>
+                </div>
+                <div class="theme-card" data-theme-pick="dark">
+                  <div class="prev" style="background:#191B1F"><div class="bar" style="width:24%;background:#26292F"></div><div style="flex:1"><div class="bar" style="height:9px;width:60%;background:#2DD4BF"></div><div class="bar" style="height:7px;width:85%;background:#33373E;margin-top:6px"></div><div class="bar" style="height:7px;width:70%;background:#33373E;margin-top:5px"></div></div></div>
+                  <div class="lab">☾ Dark</div>
+                </div>
+                <div class="theme-card" data-theme-pick="system">
+                  <div class="prev" style="background:linear-gradient(90deg,#FAFAF8 0 50%,#191B1F 50% 100%);border:1px solid #E8E8E4"><div class="bar" style="width:24%;background:#EDEDE9"></div><div style="flex:1"><div class="bar" style="height:9px;width:60%;background:#0F766E"></div><div class="bar" style="height:7px;width:85%;background:#8f8f8a;margin-top:6px"></div><div class="bar" style="height:7px;width:70%;background:#8f8f8a;margin-top:5px"></div></div></div>
+                  <div class="lab">🖥 System</div>
+                </div>
               </div>
             </div>
             <div class="set-pane" id="set-integrations">
@@ -1278,6 +1310,13 @@
     $('#set-'+t.dataset.set).classList.add('on');
     // reset workspace-profile file view to the list each time
     if($('#wpList')){$('#wpList').style.display='block';$('#wpFile').style.display='none';}
+  }));
+
+  /* color theme picker */
+  $$('[data-theme-pick]').forEach(c=>c.addEventListener('click',()=>{
+    $$('[data-theme-pick]').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');
+    const t=c.dataset.themePick;
+    toast(t==='light'?'Light theme applied':t==='dark'?'Dark theme selected — JobAgentX ships light-first at launch':'Following your system appearance — light-first at launch');
   }));
 
   /* ================= REPORTS ================= */
