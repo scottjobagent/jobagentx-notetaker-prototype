@@ -306,6 +306,53 @@
   table.rt th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:9px 12px;border-bottom:1px solid var(--line)}
   table.rt td{padding:11px 12px;border-bottom:1px solid var(--line-soft);color:var(--muted)}
   table.rt td:first-child{color:var(--ink);font-weight:600}
+  table.rt tr[data-open-report]{cursor:pointer}
+  table.rt tr[data-open-report]:hover td{background:var(--blue-ghost)}
+  .repc[data-open-report]{cursor:pointer;transition:box-shadow .15s}
+  .repc[data-open-report]:hover{box-shadow:var(--sh-lg)}
+
+  /* report detail */
+  .rd-wrap{display:grid;grid-template-columns:1fr 340px;gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--card);min-height:560px}
+  .rd-main{border-right:1px solid var(--line);display:flex;flex-direction:column}
+  .rd-filterbar{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap;position:relative}
+  .rd-fchips{display:flex;gap:8px;flex-wrap:wrap}
+  .rd-fchip{display:inline-flex;align-items:center;gap:7px;background:var(--canvas);border:1px solid var(--line);border-radius:8px;padding:4px 6px 4px 10px;font-size:12px}
+  .rd-fchip b{font-weight:600}
+  .rd-fchip .op{color:var(--faint)}
+  .rd-fchip .x{cursor:pointer;color:var(--faint);border-left:1px solid var(--line);padding-left:6px;margin-left:2px}
+  .rd-fchip .x:hover{color:#B42318}
+  .rd-addf{border:1px dashed var(--line);background:var(--card);border-radius:8px;padding:4px 11px;font-size:12px;cursor:pointer;color:var(--muted)}
+  .rd-addf:hover{border-color:var(--blue);color:var(--blue-deep)}
+  .rd-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+  .rd-side{padding:14px 16px;overflow-y:auto}
+  .rd-tabs{display:flex;gap:2px;background:var(--line-soft);border-radius:var(--pill);padding:3px;margin-bottom:14px}
+  .rd-tabs span{flex:1;text-align:center;padding:6px;border-radius:var(--pill);font-weight:600;font-size:12px;color:var(--muted);cursor:pointer}
+  .rd-tabs span.on{background:var(--card);color:var(--ink);box-shadow:var(--sh)}
+  .rd-banner{background:var(--blue-ghost);border:1px solid #D8E9E5;border-radius:10px;padding:9px 12px;font-size:12px;color:var(--blue-deep)}
+  .rd-props{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+  .rd-props>div{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid var(--line-soft);font-size:12.5px}
+  .rd-props>div span{color:var(--muted)}
+  .rd-props>div b{text-align:right;font-weight:600}
+  .rd-actions{display:flex;flex-direction:column;margin-top:6px}
+  .rd-actions>div{padding:9px 4px;border-radius:8px;cursor:pointer;font-size:13px}
+  .rd-actions>div:hover{background:var(--line-soft)}
+  .rd-actions .del{color:#B42318}
+  .ai-sug{border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:12.5px;color:var(--muted);cursor:pointer}
+  .ai-sug:hover{border-color:var(--blue);color:var(--blue-deep);background:var(--blue-ghost)}
+  .rd-me{align-self:flex-end;background:var(--blue);color:#fff;border-radius:14px 14px 3px 14px;padding:8px 13px;font-size:12.5px;max-width:88%}
+  .rd-bot{background:var(--line-soft);border-radius:14px 14px 14px 3px;padding:10px 13px;font-size:12.5px;line-height:1.55;max-width:92%}
+
+  /* workspace profile file viewer */
+  .wp-file{padding:16px 18px}
+  .wp-file .wp-h{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line-soft);padding-bottom:10px;margin-bottom:12px}
+  .wp-file .wp-back{color:var(--faint);font-size:12.5px;cursor:pointer}
+  .wp-file .wp-ver{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:3px 9px}
+  .wp-md{font-size:12.5px;line-height:1.65;color:#333B49}
+  .wp-md h3{font-size:15px;color:var(--ink);margin:16px 0 6px}
+  .wp-md h4{font-size:13px;color:var(--ink);margin:14px 0 4px}
+  .wp-md ul{margin:6px 0;padding-left:18px}
+  .wp-md li{margin:2px 0}
+  .wp-md .src{color:var(--blue-deep)}
 </style>
 
 <div class="stage">
@@ -563,16 +610,25 @@
               </div>
             </div>
             <div class="set-pane" id="set-profile">
-              <p style="margin:0 0 12px;color:var(--muted);font-size:12.5px">Versioned markdown the AI writes and maintains about your company — it grounds every summary and Ask AI answer.</p>
-              <div class="card md-card"><div><b>📄 workspace.md</b><div><small>V3 · EDITED 4 DAYS AGO BY JOBAGENTX</small></div></div><span style="color:var(--faint)">›</span></div>
-              <div class="lbl" style="margin:14px 0 6px">roles</div>
-              <div class="card md-card"><div><b>📄 sales.md</b><div><small>V2 · EDITED 4 DAYS AGO BY JOBAGENTX</small></div></div><span style="color:var(--faint)">›</span></div>
+              <div id="wpList">
+                <p style="margin:0 0 12px;color:var(--muted);font-size:12.5px">Versioned markdown the AI writes and maintains about your company — it grounds every summary and Ask AI answer.</p>
+                <div class="card md-card" data-open-wp="workspace"><div><b>📄 workspace.md</b><div><small>V3 · EDITED 4 DAYS AGO BY JOBAGENTX</small></div></div><span style="color:var(--faint)">›</span></div>
+                <div class="lbl" style="margin:14px 0 6px">roles</div>
+                <div class="card md-card" data-open-wp="sales"><div><b>📄 sales.md</b><div><small>V2 · EDITED 4 DAYS AGO BY JOBAGENTX</small></div></div><span style="color:var(--faint)">›</span></div>
+              </div>
+              <div class="card wp-file" id="wpFile" style="display:none">
+                <div class="wp-h">
+                  <span class="wp-back" id="wpBack">‹ Workspace profile</span>
+                  <span style="display:flex;gap:8px;align-items:center"><b style="font-size:13px" id="wpName">workspace.md</b><span class="wp-ver" id="wpVer">✓ Saved · VERSION 3</span></span>
+                </div>
+                <div class="wp-md" id="wpBody"></div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ============ REPORTS ============ -->
+      <!-- ============ REPORTS (list) ============ -->
       <section class="screen" id="scr-reports">
         <div class="rep-hero">
           <div>
@@ -590,22 +646,98 @@
           </div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px">
-          <b>Created by JobAgentX ▾</b><button class="btn dark sm">+ New Report</button>
+          <b>Created by JobAgentX ▾</b><button class="btn dark sm" data-open-report="new">+ New Report</button>
         </div>
         <div class="rep-grid">
-          <div class="card repc"><b>Candidates</b><small>All conversations grouped by the candidate's email address.</small><div class="spark"><i style="height:30%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:62%"></i><i style="height:50%"></i><i class="hi" style="height:78%"></i></div></div>
-          <div class="card repc"><b>Candidate Talk Time, by Interviewer</b><small>Average external talk time across interviewers.</small><div class="spark"><i style="height:55%"></i><i style="height:48%"></i><i style="height:60%"></i><i style="height:52%"></i><i style="height:66%"></i><i class="hi" style="height:58%"></i></div></div>
-          <div class="card repc"><b>Interviewer Punctuality</b><small>Weekly average minutes late (internal participants).</small><div class="spark"><i style="height:40%"></i><i style="height:34%"></i><i style="height:28%"></i><i style="height:30%"></i><i style="height:22%"></i><i class="hi" style="height:18%"></i></div></div>
-          <div class="card repc"><b>Interviewer Question Count</b><small>Average questions asked by interviewers.</small><div class="spark"><i style="height:44%"></i><i style="height:52%"></i><i style="height:47%"></i><i style="height:58%"></i><i style="height:64%"></i><i class="hi" style="height:70%"></i></div></div>
+          <div class="card repc" data-open-report="Candidates"><b>Candidates</b><small>All conversations grouped by the candidate's email address.</small><div class="spark"><i style="height:30%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:62%"></i><i style="height:50%"></i><i class="hi" style="height:78%"></i></div></div>
+          <div class="card repc" data-open-report="Candidate Talk Time, by Interviewer"><b>Candidate Talk Time, by Interviewer</b><small>Average external talk time across interviewers.</small><div class="spark"><i style="height:55%"></i><i style="height:48%"></i><i style="height:60%"></i><i style="height:52%"></i><i style="height:66%"></i><i class="hi" style="height:58%"></i></div></div>
+          <div class="card repc" data-open-report="Interviewer Punctuality"><b>Interviewer Punctuality</b><small>Weekly average minutes late (internal participants).</small><div class="spark"><i style="height:40%"></i><i style="height:34%"></i><i style="height:28%"></i><i style="height:30%"></i><i style="height:22%"></i><i class="hi" style="height:18%"></i></div></div>
+          <div class="card repc" data-open-report="Interviewer Question Count"><b>Interviewer Question Count</b><small>Average questions asked by interviewers.</small><div class="spark"><i style="height:44%"></i><i style="height:52%"></i><i style="height:47%"></i><i style="height:58%"></i><i style="height:64%"></i><i class="hi" style="height:70%"></i></div></div>
         </div>
-        <div class="card" style="margin-top:16px;padding:6px 8px">
+        <div class="lbl" style="margin-top:22px">All Reports</div>
+        <div class="card" style="margin-top:8px;padding:6px 8px">
           <table class="rt">
             <tr><th>Name</th><th>Conversations</th><th>Most recent</th><th>Created by</th><th>Trend</th></tr>
-            <tr><td>Interviewer Punctuality</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
-            <tr><td>Candidate Talk Time, by Interviewer</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
-            <tr><td>Interviewer Question Count</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
-            <tr><td>Candidates</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
+            <tr data-open-report="Interviewer Punctuality"><td>Interviewer Punctuality</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
+            <tr data-open-report="Candidate Talk Time, by Interviewer"><td>Candidate Talk Time, by Interviewer</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
+            <tr data-open-report="Interviewer Question Count"><td>Interviewer Question Count</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
+            <tr data-open-report="Candidates"><td>Candidates</td><td>0</td><td>—</td><td>JobAgentX</td><td>No trend yet</td></tr>
           </table>
+        </div>
+      </section>
+
+      <!-- ============ REPORT DETAIL ============ -->
+      <section class="screen" id="scr-report">
+        <div class="crumb" data-nav="reports">‹ Reports&nbsp;/&nbsp;<b id="rdTitle">Report</b></div>
+        <div class="rd-wrap">
+          <div class="rd-main">
+            <div class="rd-filterbar">
+              <div class="rd-fchips" id="rdFilters"></div>
+              <span style="position:relative"><button class="rd-addf" id="rdAddFilter">+ Filter</button>
+                <div class="menu" id="rdFilterMenu" style="top:32px;left:0;width:270px">
+                  <input class="msearch" id="rdFilterSearch" placeholder="Filter">
+                  <div class="mlist" id="rdFilterList"></div>
+                </div></span>
+              <span style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                <span class="chip" id="rdGroup">📁 Group by: Interviewer ▾</span>
+                <button class="btn dark sm">▦ Add Columns</button>
+              </span>
+            </div>
+            <div class="rd-empty" id="rdEmpty">
+              <div style="font-size:34px">👻</div>
+              <b style="font-size:14px;color:var(--ink)">No groups match these filters</b>
+              <div style="color:var(--muted);font-size:12.5px;max-width:44ch;margin-top:4px">This is a prototype — connect conversations and the report groups and trends populate here.</div>
+              <button class="btn sm" style="margin-top:12px" id="rdClearFilters">✕ Clear filters</button>
+            </div>
+          </div>
+          <div class="rd-side">
+            <div class="rd-tabs">
+              <span class="on" data-rdtab="info">ⓘ Information</span>
+              <span data-rdtab="assistant">🤖 Assistant</span>
+              <span data-rdtab="charts">📈 Charts</span>
+            </div>
+            <div class="rd-pane" id="rdpane-info">
+              <div class="rd-banner" id="rdBanner">This report was created by JobAgentX</div>
+              <div class="lbl" style="margin-top:14px">Properties</div>
+              <div class="rd-props">
+                <div><span>Title</span><b id="rdPropTitle">Interviewer Punctuality</b></div>
+                <div><span>Description</span><b id="rdPropDesc">Average punctuality, across all interviewers.</b></div>
+                <div><span>Created</span><b>12 days ago</b></div>
+                <div><span>Created by</span><b>◆ JobAgentX</b></div>
+              </div>
+              <div class="lbl" style="margin-top:16px">Cover chart</div>
+              <div class="card" style="padding:12px;margin-top:8px">
+                <div style="font-size:12.5px;font-weight:600" id="rdChartTitle">Average Minutes Late (internal participants)</div>
+                <div class="spark" style="height:90px;margin-top:12px"><i style="height:40%"></i><i style="height:34%"></i><i style="height:28%"></i><i style="height:30%"></i><i style="height:22%"></i><i class="hi" style="height:18%"></i></div>
+              </div>
+              <div class="lbl" style="margin-top:16px">Subscribers</div>
+              <div style="color:var(--muted);font-size:12px;margin-top:4px">Subscribers receive notifications whenever there is a new conversation, or when there is an upcoming conversation.</div>
+              <button class="btn sm" style="margin-top:8px;border-style:dashed" data-toast="Subscriber added — they'll get an email alert when this report changes">+ Add subscriber</button>
+              <div class="lbl" style="margin-top:16px">Actions</div>
+              <div class="rd-actions">
+                <div data-toast="Report duplicated">⧉ Duplicate</div>
+                <div data-toast="Added to favorites">☆ Favorite</div>
+                <div data-toast="Share link copied">⤴ Share</div>
+                <div data-toast="Downloading CSV…">⤓ Download CSV</div>
+                <div class="del" data-toast="Delete is disabled in this prototype">🗑 Delete</div>
+              </div>
+            </div>
+            <div class="rd-pane" id="rdpane-assistant" style="display:none">
+              <div style="color:var(--muted);font-size:12.5px;margin-bottom:10px">Ask the assistant to build or refine this report in plain English.</div>
+              <div id="rdAiBody" style="display:flex;flex-direction:column;gap:10px">
+                <div class="ai-sug" data-rdask>Show me interviewers who ran more than 10 minutes late on average</div>
+                <div class="ai-sug" data-rdask>Which job titles have the longest interviews?</div>
+              </div>
+              <div class="in" style="border:1px solid var(--line);border-radius:var(--pill);margin-top:12px;padding:0"><input style="border:none;flex:1;padding:8px 14px;outline:none;font-size:12.5px" placeholder="Ask the assistant…"><button class="btn blue sm" style="margin:3px">↑</button></div>
+            </div>
+            <div class="rd-pane" id="rdpane-charts" style="display:none">
+              <div class="card" style="padding:12px">
+                <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12.5px;font-weight:600" id="rdChartTitle2">Average Minutes Late (internal participants)</span><span style="color:var(--faint)">⤢ ⚙</span></div>
+                <div class="spark" style="height:90px;margin-top:12px"><i style="height:40%"></i><i style="height:34%"></i><i style="height:28%"></i><i style="height:30%"></i><i style="height:22%"></i><i class="hi" style="height:18%"></i></div>
+              </div>
+              <button class="btn sm" style="margin-top:12px;border-style:dashed;width:100%;justify-content:center" data-toast="Chart builder (prototype)">+ Add another chart</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -936,12 +1068,13 @@
   });
 
   /* ================= nav / screens ================= */
-  const screens={home:'scr-home',reports:'scr-reports',settings:'scr-settings',note:'scr-note'};
+  const screens={home:'scr-home',reports:'scr-reports',report:'scr-report',settings:'scr-settings',note:'scr-note'};
   function go(name){
     $$('.screen').forEach(e=>e.classList.remove('on'));
     $('#'+(screens[name]||'scr-home')).classList.add('on');
     $$('.nav a').forEach(a=>a.classList.remove('on'));
-    const sel=(name==='home'||name==='note')?$('.nav-notes'):$$('.nav a').find(a=>a.dataset.nav===name);
+    const navName=(name==='report')?'reports':name;
+    const sel=(navName==='home'||navName==='note')?$('.nav-notes'):$$('.nav a').find(a=>a.dataset.nav===navName);
     if(sel)sel.classList.add('on');
     $('#drawer').classList.remove('open');$('#ai').classList.remove('open');
     $('#fab').style.display=(name==='note')?'flex':'none';
@@ -1105,6 +1238,133 @@
     $('#suggestRow').innerHTML='<span>📄 Next Gen.docx</span><span class="enabled">ADDED</span>';
     toast('Next Gen.docx attached as context');
   });
+
+  /* settings tabs */
+  $$('[data-set]').forEach(t=>t.addEventListener('click',()=>{
+    $$('[data-set]').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+    $$('.set-pane').forEach(p=>p.classList.remove('on'));
+    $('#set-'+t.dataset.set).classList.add('on');
+    // reset workspace-profile file view to the list each time
+    if($('#wpList')){$('#wpList').style.display='block';$('#wpFile').style.display='none';}
+  }));
+
+  /* ================= REPORTS ================= */
+  const REPORTS={
+    'Interviewer Punctuality':{desc:'Average punctuality, across all interviewers.',chart:'Average Minutes Late (internal participants)',group:'Interviewer',filters:[['Date','in the last','3 months'],['Conversation Type','is','Job Interview']]},
+    'Candidate Talk Time, by Interviewer':{desc:'Average candidate talk time, across all interviewers.',chart:'Weekly average talk time (external participants)',group:'Interviewer',filters:[['Date','in the last','3 months']]},
+    'Interviewer Question Count':{desc:'Average number of questions asked by interviewers.',chart:'Weekly average question count (internal participants)',group:'Interviewer',filters:[['Conversation Type','is','Job Interview']]},
+    'Candidates':{desc:"All conversations grouped by the candidate's email address.",chart:'Weekly conversation count',group:'Candidate',filters:[]},
+    'new':{desc:'',chart:'Conversation Count',group:'Interviewer',filters:[],untitled:true}
+  };
+  const FILTER_CATS=[
+    ['Popular',['Discussed','Participants','Date','Event Name']],
+    ['AI · filters using your custom AI columns',['Compensation Expectations','Office Preferences','Scorecard Key Takeaways','Skills Assessed']],
+    ['Conversational · attributes from the actual conversation',['Discussed','Language','Minutes Late','Minutes Overrun','Number of Questions','Talk-time']],
+    ['Event · metadata from calendar events',['Candidate Phone Number','Channel','Conversation Type','Date','Duration (Actual)','Duration (Expected)','Event Name','Number of Participants','Only Internal Participants','Participants','Scheduling Method']]
+  ];
+  let curReport='Interviewer Punctuality';
+  function renderReport(name){
+    const r=REPORTS[name]; if(!r)return;
+    curReport=name;
+    const title=r.untitled?'Untitled Report':name;
+    $('#rdTitle').textContent=title; $('#rdPropTitle').textContent=title;
+    $('#rdPropDesc').textContent=r.desc||'Add description';
+    $('#rdPropDesc').style.color=r.desc?'':'var(--faint)';
+    $('#rdChartTitle').textContent=r.chart; $('#rdChartTitle2').textContent=r.chart;
+    $('#rdGroup').textContent='📁 Group by: '+r.group+' ▾';
+    $('#rdBanner').textContent=r.untitled?'New report — add filters to define what it tracks':'This report was created by JobAgentX';
+    $('#rdBanner').style.display=r.untitled?'none':'block';
+    renderReportFilters();
+    // reset side tab to info
+    $$('[data-rdtab]').forEach(x=>x.classList.remove('on'));$$('[data-rdtab]')[0].classList.add('on');
+    $$('.rd-pane').forEach(p=>p.style.display='none');$('#rdpane-info').style.display='block';
+  }
+  function renderReportFilters(){
+    const r=REPORTS[curReport];
+    $('#rdFilters').innerHTML=r.filters.map((f,i)=>'<span class="rd-fchip"><b>'+esc(f[0])+'</b> <span class="op">'+esc(f[1])+'</span> <b>'+esc(f[2])+'</b><span class="x" data-rmfilter="'+i+'">✕</span></span>').join('');
+    $('#rdEmpty').style.display='flex';
+  }
+  document.addEventListener('click',e=>{
+    const t=e.target.closest('[data-open-report]'); if(t){renderReport(t.getAttribute('data-open-report'));go('report')}
+  });
+  // filter add/remove
+  $('#rdAddFilter').addEventListener('click',ev=>{ev.stopPropagation();$('#rdFilterMenu').classList.toggle('open')});
+  function drawFilterList(f){
+    $('#rdFilterList').innerHTML=FILTER_CATS.map(([cat,items])=>{
+      const rows=items.filter(x=>x.toLowerCase().includes((f||'').toLowerCase()));
+      if(!rows.length)return'';
+      return '<div class="lbl" style="padding:8px 8px 2px">'+esc(cat)+'</div>'+rows.map(x=>'<div class="mi" data-addfilter="'+esc(x)+'"># '+esc(x)+'</div>').join('');
+    }).join('');
+  }
+  drawFilterList('');
+  $('#rdFilterSearch').addEventListener('input',e=>drawFilterList(e.target.value));
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('[data-addfilter]');
+    if(a){REPORTS[curReport].filters.push([a.dataset.addfilter,'is','any']);renderReportFilters();$('#rdFilterMenu').classList.remove('open');toast('Filter added: '+a.dataset.addfilter)}
+    else if(!e.target.closest('#rdFilterMenu')&&!e.target.closest('#rdAddFilter'))$('#rdFilterMenu').classList.remove('open');
+    const rm=e.target.closest('[data-rmfilter]');
+    if(rm){REPORTS[curReport].filters.splice(+rm.dataset.rmfilter,1);renderReportFilters()}
+  });
+  $('#rdClearFilters').addEventListener('click',()=>{REPORTS[curReport].filters=[];renderReportFilters();toast('Filters cleared')});
+  // side tabs
+  $$('[data-rdtab]').forEach(t=>t.addEventListener('click',()=>{
+    $$('[data-rdtab]').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+    $$('.rd-pane').forEach(p=>p.style.display='none');$('#rdpane-'+t.dataset.rdtab).style.display='block';
+  }));
+  // assistant
+  document.addEventListener('click',e=>{
+    const s=e.target.closest('[data-rdask]');if(!s)return;
+    const b=$('#rdAiBody');
+    b.insertAdjacentHTML('beforeend','<div class="rd-me">'+esc(s.textContent)+'</div>');
+    setTimeout(()=>{b.insertAdjacentHTML('beforeend','<div class="rd-bot">I\'ve added the filters for that (Minutes Late &gt; 10, grouped by Interviewer). Once conversations are connected, the matching interviewers and their trend will appear on the left. Want me to add this as a saved chart?</div>');b.scrollTop=b.scrollHeight},500);
+    b.scrollTop=b.scrollHeight;
+  });
+
+  /* ================= WORKSPACE PROFILE FILES ================= */
+  const WP={
+    workspace:{name:'workspace.md',ver:'✓ Saved · VERSION 3',html:`
+      <h3>JobAgentX</h3>
+      <h4>Overview</h4>
+      <p>JobAgentX is a staffing and recruiting company based in Henderson, Nevada, presenting itself as a <b>virtual hiring event platform</b> that connects employers with pre-screened, interview-ready candidates through scheduled hiring events and built-in video interviewing. Public-facing categories emphasize Healthcare, Technology, Veteran, Diversity, and Entry-Level hiring. <span class="src">Sources: JobAgentX website, About JobAgentX, LinkedIn</span></p>
+      <h4>Hiring philosophy and culture</h4>
+      <ul>
+        <li>Speed to hire over traditional slow pipeline management</li>
+        <li>Pre-screening and interview readiness over open-ended sourcing</li>
+        <li>Inclusive, nationwide access via virtual formats rather than geography-bound events</li>
+        <li>Structured interviewing and measurable outcomes such as time-to-fill and recruiting ROI</li>
+      </ul>
+      <p>Inference: JobAgentX likely values people who can operate in a high-velocity, customer-facing recruiting environment and who are comfortable combining product, sales, and recruiting operations.</p>
+      <h4>Similar companies</h4>
+      <ul><li>Brazen — virtual career fair / hiring event platform</li><li>vFairs — broader virtual events platform with hiring-event use cases</li><li>Handshake — talent engagement platform with early-career recruiting flows</li></ul>
+    `},
+    sales:{name:'sales.md',ver:'✓ Saved · VERSION 2',html:`
+      <h3>Sales</h3>
+      <h4>Scope</h4>
+      <p>JobAgentX's sales hiring appears to cover two adjacent lanes:</p>
+      <ul>
+        <li>Hands-on individual-contributor closers in the Las Vegas area</li>
+        <li>First-line sales managers / player-coach leaders in the Las Vegas area</li>
+        <li>Remote U.S. mid-market AEs for a B2B SaaS motion</li>
+      </ul>
+      <p>The clearest evidence comes from multiple sourcing ICPs: one for Las Vegas sales candidates, one for Sales Manager — Las Vegas, 3+ Years, and one for B2B SaaS Mid-Market AE — Remote US. <span class="src">Source: Scott Hayes LinkedIn</span></p>
+      <h4>What they hire for — Las Vegas sales ICs</h4>
+      <ul>
+        <li>3+ years of professional sales experience</li>
+        <li>Current or recent roles in sales or business development</li>
+        <li>B2B sales, quota-carrying, revenue-owning, or full-cycle closing experience</li>
+        <li>Hands-on ICs, not managers</li>
+      </ul>
+      <h4>Las Vegas sales managers</h4>
+      <ul><li>3–10 years of professional sales experience, including first-line leadership or player-coach scope</li></ul>
+    `}
+  };
+  document.addEventListener('click',e=>{
+    const w=e.target.closest('[data-open-wp]');if(!w)return;
+    const f=WP[w.dataset.openWp];
+    $('#wpName').textContent=f.name;$('#wpVer').textContent=f.ver;$('#wpBody').innerHTML=f.html;
+    $('#wpList').style.display='none';$('#wpFile').style.display='block';
+  });
+  $('#wpBack').addEventListener('click',()=>{$('#wpFile').style.display='none';$('#wpList').style.display='block'});
 })();
 </script>
 
