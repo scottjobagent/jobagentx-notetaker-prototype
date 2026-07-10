@@ -26,13 +26,28 @@
   .stage{max-width:1440px;margin:0 auto;padding:18px}
   .proto-bar{display:flex;justify-content:space-between;align-items:center;color:#8fa0c4;font-size:12px;padding:0 6px 10px;font-family:var(--mono)}
   .proto-bar b{color:#dbe4f8;font-weight:600}
-  .app{display:grid;grid-template-columns:236px 1fr;background:var(--canvas);border-radius:20px;overflow:hidden;height:calc(100vh - 78px);min-height:660px;box-shadow:0 20px 60px rgba(0,0,0,.45);position:relative}
+  .app{display:grid;grid-template-columns:236px 1fr;background:var(--canvas);border-radius:20px;overflow:hidden;height:calc(100vh - 78px);min-height:660px;box-shadow:0 20px 60px rgba(0,0,0,.45);position:relative;transition:grid-template-columns .22s ease}
 
   /* sidebar */
   .side{background:var(--card);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 12px}
+  .brandrow{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
   .wordmark{font-size:19px;font-weight:800;letter-spacing:-.02em;padding:4px 10px 2px}
   .wordmark .x{color:var(--blue)}
   .wordmark-sub{font-size:10.5px;color:var(--faint);padding:0 10px 14px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase}
+  .rail-btn{color:var(--faint);cursor:pointer;padding:6px 7px;border-radius:8px;font-size:14px;line-height:1;margin-top:2px}
+  .rail-btn:hover{background:var(--line-soft);color:var(--ink)}
+  .mark{display:none;width:34px;height:34px;border-radius:10px;background:var(--ink);color:#fff;font-weight:800;font-size:14px;align-items:center;justify-content:center;cursor:pointer;margin:0 auto 14px;letter-spacing:-.02em}
+  .mark .x{color:#8FE3D8}
+  /* collapsed rail */
+  .app.railmode{grid-template-columns:64px 1fr}
+  .app.railmode .side{padding:18px 8px}
+  .app.railmode .wordmark,.app.railmode .wordmark-sub,.app.railmode .rail-btn{display:none}
+  .app.railmode .mark{display:flex}
+  .app.railmode .nav a{justify-content:center;padding:9px 0}
+  .app.railmode .nav a .nt{display:none}
+  .app.railmode .acct{justify-content:center;padding:10px 0}
+  .app.railmode .acct .acct-id,.app.railmode .acct .acct-car{display:none}
+  .app.railmode .acct-menu{left:6px;right:auto;width:232px}
   .nav{display:flex;flex-direction:column;gap:2px}
   .nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;color:var(--muted);text-decoration:none;cursor:pointer;font-weight:500}
   .nav a:hover{background:var(--line-soft)}
@@ -424,14 +439,20 @@
   <div class="app" id="app">
 
     <aside class="side">
-      <div class="wordmark">JobAgent<span class="x">X</span></div>
-      <div class="wordmark-sub">Notetaker</div>
+      <div class="brandrow">
+        <div>
+          <div class="wordmark">JobAgent<span class="x">X</span></div>
+          <div class="wordmark-sub">Notetaker</div>
+        </div>
+        <span class="rail-btn" id="railBtn" title="Collapse sidebar">⧉</span>
+      </div>
+      <span class="mark" id="railMark" title="Expand sidebar">J<span class="x">X</span></span>
       <nav class="nav">
-        <a data-nav="home" class="on nav-notes"><span class="ic">▤</span>Notes</a>
-        <a data-nav="reports"><span class="ic">◫</span>Reports</a>
+        <a data-nav="home" class="on nav-notes" title="Notes"><span class="ic">▤</span><span class="nt">Notes</span></a>
+        <a data-nav="reports" title="Reports"><span class="ic">◫</span><span class="nt">Reports</span></a>
       </nav>
       <div class="foot">
-        <nav class="nav"><a data-nav="settings"><span class="ic">⚙</span>Settings</a></nav>
+        <nav class="nav"><a data-nav="settings" title="Settings"><span class="ic">⚙</span><span class="nt">Settings</span></a></nav>
         <div class="acct-wrap">
           <div class="acct-menu" id="acctMenu">
             <div class="amhdr"><div class="ava">SH</div><div><b style="font-size:12.5px">Scott Hayes</b><small>scott.hayes@jobfairx.com</small></div></div>
@@ -444,7 +465,7 @@
             <div class="amsep"></div>
             <div class="ami" data-acct="signout"><span class="ic">⤶</span>Sign out</div>
           </div>
-          <div class="acct" id="acctBtn"><div class="ava">SH</div><div><b style="font-size:12.5px">Scott Hayes</b><small>scott.hayes@jobfairx.com</small></div><span style="margin-left:auto;color:var(--faint);font-size:12px">⌄</span></div>
+          <div class="acct" id="acctBtn"><div class="ava">SH</div><div class="acct-id"><b style="font-size:12.5px">Scott Hayes</b><small>scott.hayes@jobfairx.com</small></div><span class="acct-car" style="margin-left:auto;color:var(--faint);font-size:12px">⌄</span></div>
         </div>
       </div>
     </aside>
@@ -561,7 +582,7 @@
                 <div style="display:flex;gap:8px"><button class="btn sm" data-toast="Summary copied to clipboard">⧉</button><button class="btn sm" data-toast="Preparing PDF…">⤓ PDF</button></div>
               </div>
               <div class="card qa" id="qaCard"></div>
-              <div class="statusbar"><span id="saveState">✓ Saved</span><span class="ver" data-open-ver id="verLbl">NO PENDING TASKS · VERSION 1 ▾</span></div>
+              <div class="statusbar"><span id="saveState">✓ Saved</span><span style="display:flex;gap:16px;align-items:center"><span class="ver" id="taskLbl" style="cursor:default" title="Format, Length, and Translate jobs appear here while they run">NO PENDING TASKS ▾</span><span class="ver" data-open-ver id="verLbl">VERSION 1 ▾</span></span></div>
               <div class="card vpop" id="vpop"></div>
             </div>
 
@@ -739,7 +760,12 @@
           </div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px">
-          <b>Created by JobAgentX ▾</b><button class="btn dark sm" data-open-report="new">+ New Report</button>
+          <span style="position:relative"><b style="cursor:pointer" id="repScope">Created by JobAgentX ▾</b>
+            <div class="menu" id="repScopeMenu" style="left:0;top:calc(100% + 6px);min-width:212px">
+              <div class="mi" data-rscope="created">Created by JobAgentX<span class="chk" style="margin-left:auto">✓</span></div>
+              <div class="mi" data-rscope="fav">Favorites<span class="chk" style="margin-left:auto"></span></div>
+            </div>
+          </span><button class="btn dark sm" data-open-report="new">+ New Report</button>
         </div>
         <div class="rep-grid">
           <div class="card repc" data-open-report="Candidates"><div class="repc-hd"><b>Candidates</b><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Added to favorites">☆ Favorite</div><div class="mi" data-toast="Report duplicated">⧉ Duplicate</div><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span></div><div class="repc-by">Created by ◆ JobAgentX</div><small>All conversations grouped by the candidate's email address.</small><div class="spark"><i style="height:30%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:62%"></i><i style="height:50%"></i><i class="hi" style="height:78%"></i></div><div class="repc-ft">💬 0&nbsp;&nbsp;·&nbsp;&nbsp;📁 0</div></div>
@@ -747,6 +773,7 @@
           <div class="card repc" data-open-report="Interviewer Punctuality"><div class="repc-hd"><b>Interviewer Punctuality</b><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Added to favorites">☆ Favorite</div><div class="mi" data-toast="Report duplicated">⧉ Duplicate</div><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span></div><div class="repc-by">Created by ◆ JobAgentX</div><small>Weekly average minutes late (internal participants).</small><div class="spark"><i style="height:40%"></i><i style="height:34%"></i><i style="height:28%"></i><i style="height:30%"></i><i style="height:22%"></i><i class="hi" style="height:18%"></i></div><div class="repc-ft">💬 0&nbsp;&nbsp;·&nbsp;&nbsp;📁 0</div></div>
           <div class="card repc" data-open-report="Interviewer Question Count"><div class="repc-hd"><b>Interviewer Question Count</b><span class="pm-wrap"><span class="pm-btn">⋯</span><div class="menu popmenu"><div class="mi" data-toast="Added to favorites">☆ Favorite</div><div class="mi" data-toast="Report duplicated">⧉ Duplicate</div><div class="mi del" data-toast="Delete is disabled in this prototype">🗑 Delete</div></div></span></div><div class="repc-by">Created by ◆ JobAgentX</div><small>Average questions asked by interviewers.</small><div class="spark"><i style="height:44%"></i><i style="height:52%"></i><i style="height:47%"></i><i style="height:58%"></i><i style="height:64%"></i><i class="hi" style="height:70%"></i></div><div class="repc-ft">💬 0&nbsp;&nbsp;·&nbsp;&nbsp;📁 0</div></div>
         </div>
+        <div class="card" id="favEmpty" style="display:none;padding:34px;text-align:center;color:var(--muted);font-size:13px;margin-top:4px">☆ No favorite reports yet — open a report's ⋯ menu and choose Favorite.</div>
         <div class="lbl" style="margin-top:22px">All Reports</div>
         <div class="card" style="margin-top:8px;padding:6px 8px">
           <table class="rt">
@@ -1271,10 +1298,11 @@
   let version=1;const versions=[{v:1,label:'Generate summary'}];
   function renderVpop(){$('#vpop').innerHTML=versions.slice().reverse().map(x=>'<div class="vrow"><b style="font-family:var(--mono);font-size:12px">Version '+x.v+(x.v===version?' <span class="enabled" style="margin-left:6px">CURRENT</span>':'')+'</b><div style="color:var(--muted);font-size:12px;margin-top:2px">'+esc(x.label)+'</div></div>').join('')}
   function pendingTask(label){
-    $('#verLbl').textContent='1 PENDING TASK · VERSION '+version+' ▾';
+    $('#taskLbl').textContent='1 PENDING TASK ▾';
     $('#saveState').textContent='⟳ Working…';
     setTimeout(()=>{version++;versions.push({v:version,label:label});renderVpop();
-      $('#verLbl').textContent='NO PENDING TASKS · VERSION '+version+' ▾';
+      $('#taskLbl').textContent='NO PENDING TASKS ▾';
+      $('#verLbl').textContent='VERSION '+version+' ▾';
       $('#saveState').textContent='✓ Saved';toast(label+' — saved as Version '+version)},1600);
   }
   renderVpop();
@@ -1340,6 +1368,22 @@
   $$('[data-nav]').forEach(a=>a.addEventListener('click',()=>{if(a.dataset.nav!=='x')go(a.dataset.nav)}));
   $$('[data-open-note]').forEach(e=>e.addEventListener('click',()=>go('note')));
   $('#fab').style.display='none';
+
+  /* ================= SIDEBAR COLLAPSE ================= */
+  $('#railBtn').addEventListener('click',()=>$('#app').classList.add('railmode'));
+  $('#railMark').addEventListener('click',()=>$('#app').classList.remove('railmode'));
+
+  /* ================= REPORTS SCOPE (Created by / Favorites) ================= */
+  $('#repScope').addEventListener('click',ev=>{ev.stopPropagation();$('#repScopeMenu').classList.toggle('open')});
+  $$('[data-rscope]').forEach(mi=>mi.addEventListener('click',()=>{
+    const fav=mi.dataset.rscope==='fav';
+    $('#repScope').textContent=(fav?'Favorites':'Created by JobAgentX')+' ▾';
+    $$('#repScopeMenu .chk').forEach(c=>c.textContent='');
+    mi.querySelector('.chk').textContent='✓';
+    $('.rep-grid').style.display=fav?'none':'';
+    $('#favEmpty').style.display=fav?'block':'none';
+    $('#repScopeMenu').classList.remove('open');
+  }));
 
   /* ================= ACCOUNT MENU ================= */
   $('#acctBtn').addEventListener('click',e=>{e.stopPropagation();$('#acctMenu').classList.toggle('open')});
